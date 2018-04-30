@@ -19,6 +19,15 @@ gem 'puma', '~> 3.7'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# gems per login
+
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
+
+gem 'jwt'
+
+gem 'simple_command'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
