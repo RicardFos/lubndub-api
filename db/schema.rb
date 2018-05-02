@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502135543) do
+ActiveRecord::Schema.define(version: 20180502174917) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20180502135543) do
     t.string "city"
     t.integer "country_ID"
     t.integer "state_ID"
+    t.string "state_name"
     t.index ["user_auth_token"], name: "index_users_on_user_auth_token", unique: true
   end
 
