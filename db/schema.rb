@@ -10,13 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502174917) do
+ActiveRecord::Schema.define(version: 20180503182014) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "sport_auth_token"
+    t.index ["sport_auth_token"], name: "index_sports_on_sport_auth_token", unique: true
+  end
+
+  create_table "user_sport_settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "exp_level"
+    t.string "group_class"
+    t.integer "radius"
+    t.string "last_minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "sport_id"
+    t.index ["sport_id"], name: "index_user_sport_settings_on_sport_id"
+    t.index ["user_id", "sport_id"], name: "index_user_sport_settings_on_user_id_and_sport_id", unique: true
+    t.index ["user_id"], name: "index_user_sport_settings_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     end
 
     def json_exclude
-    [:id, :password_digest, :email, :created_at, :updated_at]
+    [ :password_digest, :email, :created_at, :updated_at]
     end
 
 end
