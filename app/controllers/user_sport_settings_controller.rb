@@ -1,34 +1,53 @@
 class UserSportSettingsController < ApplicationController
-  skip_before_action :authenticate_request
+#  skip_before_action :authenticate_request
 
   # GET /user_sport_settings
   def index
     set_user
-    @user_sport_settings = @user.user_sport_settings.all
-
-    render json: @user_sport_settings
+    if is_authorized
+      @user_sport_settings = @user.user_sport_settings.all
+      render json: @user_sport_settings
+    else
+      unauthorized_message
+    end
   end
 
   # GET /user_sport_settings/1
   def show
     set_user
-    render json: @user.user_sport_settings.find(params[:id])
+    if is_authorized
+      render json: @user.user_sport_settings.find(params[:id])
+    else
+      unauthorized_message
+    end
   end
 
   # POST /user_sport_settings
   def create
     fetch_params
-    @user_sport_setting = @user.user_sport_settings.build(sport_id: @sport.id)
-    @user_sport_setting.update(user_sport_setting_params)
-
-    if @user_sport_setting.save
+    if is_authorized
+      #Buscar si existe antes de crearlo
+      if !@user.user_sport_settings.find_by(sport_id: @sport.id)
+        @user_sport_setting = @user.user_sport_settings.build(sport_id: @sport.id)
+        @user_sport_setting.update(user_sport_setting_params)
+        if @user_sport_setting.save
+           render json: @user_sport_setting
+        else
+          render json: @user_sport_setting.errors, status: :unprocessable_entity
+        end
+      else
+        render json: {message: "Already exists"}
+      end
     else
-      render json: @user_sport_setting.errors, status: :unprocessable_entity
+      unauthorized_message
     end
+
   end
 
   # PATCH/PUT /user_sport_settings/1
   def update
+    set_user
+    @user_sport_setting = @user.user_sport_settings.find(params[:id])
     if @user_sport_setting.update(user_sport_setting_params)
       render json: @user_sport_setting
     else
@@ -61,5 +80,14 @@ class UserSportSettingsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_sport_setting_params
       params.require(:user_sport_setting).permit(:exp_level, :group_class, :radius, :last_minutes)
+    end
+
+    def is_authorized
+      return true if @user == @current_user
+      return false
+    end
+
+    def unauthorized_message
+      render json: {message: "You can't access the settings from other users"}
     end
 end
