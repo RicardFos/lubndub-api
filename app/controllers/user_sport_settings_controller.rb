@@ -47,17 +47,27 @@ class UserSportSettingsController < ApplicationController
   # PATCH/PUT /user_sport_settings/1
   def update
     set_user
-    @user_sport_setting = @user.user_sport_settings.find(params[:id])
-    if @user_sport_setting.update(user_sport_setting_params)
-      render json: @user_sport_setting
+    if is_authorized
+      @user_sport_setting = @user.user_sport_settings.find(params[:id])
+      if @user_sport_setting.update(user_sport_setting_params)
+        render json: @user_sport_setting
+      else
+        render json: @user_sport_setting.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user_sport_setting.errors, status: :unprocessable_entity
+      unauthorized_message
     end
   end
 
   # DELETE /user_sport_settings/1
   def destroy
-    @user_sport_setting.destroy
+    set_user
+    if is_authorized
+      @user_sport_setting = @user.user_sport_settings.find(params[:id])
+      @user_sport_setting.destroy
+    else
+      unauthorized_message
+    end
   end
 
   private
