@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :user_sport_settings, dependent: :destroy
+#  has_many :favourite_sports, class_name: "UserSportSetting", foreign_key: "userID"
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :last_name, presence: true
