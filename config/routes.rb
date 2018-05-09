@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :meeting_events
   resources :sports, param: :sport_auth_token
   resources :items
   resources :users, param: :user_auth_token do

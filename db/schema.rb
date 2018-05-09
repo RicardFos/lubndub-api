@@ -10,13 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503182014) do
+ActiveRecord::Schema.define(version: 20180509182554) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "meeting_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "sport_id"
+    t.string "location"
+    t.float "latitude", limit: 24
+    t.float "longitude", limit: 24
+    t.date "date"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "status"
+    t.integer "exp_level"
+    t.string "group_class", default: "No"
+    t.string "gender"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.integer "min_users"
+    t.integer "max_users"
+    t.string "privacy"
+    t.string "type"
+    t.string "event_type"
+    t.integer "country_id", default: 0
+    t.string "state"
+    t.string "city"
+    t.string "zip_code"
+    t.string "periodic", default: "No"
+    t.string "periodic_interval", default: "WEEK"
+    t.string "periodic_run", default: "No"
   end
 
   create_table "sports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
