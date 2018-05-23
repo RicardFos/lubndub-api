@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/user_auth_token
   def show
-    render json: @user, except: json_exclude
+    render json: @user #, except: json_exclude
   #  render_from @user.to_json(except: json_exclude)
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created, location: @user, message: "user created"
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity, message: "user not created"
     end
   end
 
@@ -49,7 +49,8 @@ class UsersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_params
       params.permit(:name,:last_name, :email, :password, :gender,
-        :date_of_birth, :address, :city, :country_ID, :state_ID, :state_name)
+        :date_of_birth, :address, :city, :country_ID, :state_ID, :state_name,
+        :zipcode, :lat, :long)
     end
 
     def json_exclude

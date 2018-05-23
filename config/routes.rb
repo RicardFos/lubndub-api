@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-
+  namespace :users do
+      resources :search, only: [:create]
+    end
   resources :meeting_events
   resources :sports, param: :sport_auth_token
   resources :items
@@ -11,4 +13,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 post '/login', to: 'authentication#login'
+get '/me', to: 'authorized_request#me'
 end
