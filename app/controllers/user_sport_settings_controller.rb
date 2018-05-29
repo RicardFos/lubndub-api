@@ -26,7 +26,7 @@ class UserSportSettingsController < ApplicationController
   # POST /user_sport_settings
   def create
     fetch_params
-    if true
+    if is_authorized
       if !@user.user_sport_settings.find_by(sport_id: @sport.id)
         @user_sport_setting = @user.user_sport_settings.build(sport_id: @sport.id)
         @user_sport_setting.update(user_sport_setting_params)
@@ -41,7 +41,6 @@ class UserSportSettingsController < ApplicationController
     else
       unauthorized_message
     end
-
   end
 
   # PATCH/PUT /user_sport_settings/sport_id

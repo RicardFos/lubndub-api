@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180520115809) do
+ActiveRecord::Schema.define(version: 20180529172102) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20180520115809) do
     t.float "latitude", limit: 24
     t.float "longitude", limit: 24
     t.date "date"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.time "start_time"
+    t.time "end_time"
     t.string "status"
     t.integer "exp_level"
     t.string "group_class", default: "No"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180520115809) do
     t.integer "min_users"
     t.integer "max_users"
     t.string "privacy"
-    t.string "type"
+    t.string "meeting_event_type"
     t.string "event_type"
     t.integer "country_id", default: 0
     t.string "state"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20180520115809) do
     t.string "periodic", default: "No"
     t.string "periodic_interval", default: "WEEK"
     t.string "periodic_run", default: "No"
+    t.string "event_auth_token"
+    t.index ["event_auth_token"], name: "index_meeting_events_on_event_auth_token", unique: true
   end
 
   create_table "sports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

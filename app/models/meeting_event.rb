@@ -5,7 +5,8 @@ class MeetingEvent < ApplicationRecord
   validates_inclusion_of :group_class, in: ["Yes", "No"]
   validates_inclusion_of :gender, in: ["Male", "Female", "Both"]
   validates_inclusion_of :privacy, in: ["Public", "Private"]
-  validates_inclusion_of :type, in: ["Meeting", "Event"]
+  validates_inclusion_of :meeting_event_type, in: ["Meeting", "Event"]
   validates_inclusion_of :periodic, in: ["Yes", "No"]
   validates_inclusion_of :periodic_interval, in: ["WEEK", "MONTH"]
+  has_secure_token :event_auth_token
 end
