@@ -1,6 +1,6 @@
 class MeetingEventsController < ApplicationController
   before_action :set_meeting_event, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_request
+  #skip_before_action :authenticate_request
 
   # GET /users/user_auth_token/meeting_events
   def index
@@ -82,17 +82,17 @@ class MeetingEventsController < ApplicationController
 
 
     def is_authorized
-    #  if @user == @current_user
+      if @user == @current_user
         return true
-    #  else
-    #    return false
-    #  end
+      else
+        return false
+      end
     end
 
     # Only allow a trusted parameter "white list" through.
     def meeting_event_params
       params.require(:meeting_event).permit(:title, :description, :location, :latitude,
       :longitude, :date, :start_time, :end_time, :status, :exp_level, :group_class, :gender, :min_age,
-      :max_age, :min_users, :max_users, :privacy, :meeting_event_type, :event_type, :periodic, :periodic_interval)
+      :max_age, :min_users, :max_users, :privacy, :meeting_event_type, :event_type, :periodic, :periodic_interval, :sport_auth_token)
     end
 end

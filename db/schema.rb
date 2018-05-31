@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180529172102) do
+ActiveRecord::Schema.define(version: 20180531190300) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180529172102) do
     t.string "periodic_interval", default: "WEEK"
     t.string "periodic_run", default: "No"
     t.string "event_auth_token"
+    t.string "sport_auth_token"
     t.index ["event_auth_token"], name: "index_meeting_events_on_event_auth_token", unique: true
   end
 
