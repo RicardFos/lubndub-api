@@ -1,5 +1,6 @@
 class MeetingEvent < ApplicationRecord
   belongs_to :user
+  has_many :participations, dependent: :destroy
   validates_inclusion_of :status, in: ["Active", "Inactive", "Cancelled"]
   validates_inclusion_of :exp_level, in: [1,2,3,4]
   validates_inclusion_of :group_class, in: ["Yes", "No"]

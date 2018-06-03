@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users, param: :user_auth_token do
     member do
       resources :user_sport_settings,  controller: 'user_sport_settings'
+      resources :participations
       resources :meeting_events, param: :event_auth_token
     end
   end

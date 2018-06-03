@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 
   # GET /users/user_auth_token
   def show
-    render json: @user #, except: json_exclude
+    #@user.merge(:id @user.id)
+  #  render json: {id: @user.id, @user.params} #, except: json_exclude
+  render json: @user
   #  render_from @user.to_json(except: json_exclude)
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531190300) do
+ActiveRecord::Schema.define(version: 20180602230941) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20180531190300) do
     t.string "event_auth_token"
     t.string "sport_auth_token"
     t.index ["event_auth_token"], name: "index_meeting_events_on_event_auth_token", unique: true
+  end
+
+  create_table "participations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "meeting_event_id"
+    t.index ["meeting_event_id"], name: "index_participations_on_meeting_event_id"
+    t.index ["user_id", "meeting_event_id"], name: "index_participations_on_user_id_and_meeting_event_id", unique: true
+    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "sports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
