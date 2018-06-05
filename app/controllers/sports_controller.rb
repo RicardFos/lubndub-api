@@ -4,7 +4,7 @@ class SportsController < ApplicationController
 
   # GET /sports
   def index
-    @sports = Sport.all
+    @sports = Sport.order('name ASC')
 
     render json: @sports
   end
