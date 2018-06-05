@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 post '/login', to: 'authentication#login'
 get '/me', to: 'authorized_request#me'
 get '/meeting_events', to: 'meeting_events#index_events'
+get '/users/:user_auth_token/sports', to: 'user_sport_settings#get_sports'
+get '/users/:user_auth_token/events_participating', to: 'participations#index_events_participating'
+get '/meeting_events/:event_auth_token/users_participating', to: 'participations#index_users_participating'
 end

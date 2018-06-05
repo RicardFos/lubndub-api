@@ -37,11 +37,11 @@ class MeetingEventsController < ApplicationController
 
   # PATCH/PUT /meeting_events/1
   def update
-    if @meeting_event.update(meeting_event_params)
-      render json: @meeting_event
-    else
-      render json: @meeting_event.errors, status: :unprocessable_entity
-    end
+#    if @meeting_event.update(meeting_event_params)
+#      render json: @meeting_event
+#    else
+#      render json: @meeting_event.errors, status: :unprocessable_entity
+#    end
   end
 
   def index_events

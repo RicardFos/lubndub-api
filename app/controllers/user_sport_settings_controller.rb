@@ -1,5 +1,5 @@
 class UserSportSettingsController < ApplicationController
-#  skip_before_action :authenticate_request
+  #skip_before_action :authenticate_request
 
   # GET /user_sport_settings
   def index
@@ -22,6 +22,19 @@ class UserSportSettingsController < ApplicationController
       unauthorized_message
     end
   end
+
+#get favourite sports from user
+#GET /user/user_auth_token/sports
+def get_sports
+  set_user
+  @sports = []
+    @user_sport_settings = @user.user_sport_settings.all
+  @user_sport_settings.each do |user_sport_setting|
+    @sports << user_sport_setting.sport
+  end
+    render json: @sports
+end
+
 
   # POST /user_sport_settings
   def create
