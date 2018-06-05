@@ -10,13 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503182014) do
+ActiveRecord::Schema.define(version: 20180602230941) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "meeting_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "sport_id"
+    t.string "location"
+    t.float "latitude", limit: 24
+    t.float "longitude", limit: 24
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
+    t.string "status"
+    t.integer "exp_level"
+    t.string "group_class", default: "No"
+    t.string "gender"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.integer "min_users"
+    t.integer "max_users"
+    t.string "privacy"
+    t.string "meeting_event_type"
+    t.string "event_type"
+    t.integer "country_id", default: 0
+    t.string "state"
+    t.string "city"
+    t.string "zip_code"
+    t.string "periodic", default: "No"
+    t.string "periodic_interval", default: "WEEK"
+    t.string "periodic_run", default: "No"
+    t.string "event_auth_token"
+    t.string "sport_auth_token"
+    t.index ["event_auth_token"], name: "index_meeting_events_on_event_auth_token", unique: true
+  end
+
+  create_table "participations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "meeting_event_id"
+    t.index ["meeting_event_id"], name: "index_participations_on_meeting_event_id"
+    t.index ["user_id", "meeting_event_id"], name: "index_participations_on_user_id_and_meeting_event_id", unique: true
+    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "sports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -57,6 +103,9 @@ ActiveRecord::Schema.define(version: 20180503182014) do
     t.integer "country_ID"
     t.integer "state_ID"
     t.string "state_name"
+    t.string "zipcode"
+    t.float "lat", limit: 24
+    t.float "long", limit: 24
     t.index ["user_auth_token"], name: "index_users_on_user_auth_token", unique: true
   end
 

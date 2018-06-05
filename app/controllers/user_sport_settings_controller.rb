@@ -1,5 +1,5 @@
 class UserSportSettingsController < ApplicationController
-#  skip_before_action :authenticate_request
+  #skip_before_action :authenticate_request
 
   # GET /user_sport_settings
   def index
@@ -18,15 +18,28 @@ class UserSportSettingsController < ApplicationController
     if is_authorized
       render json: @user.user_sport_settings.find(params[:id])
     else
+    #  render json: @user.as_json
       unauthorized_message
     end
   end
+
+#get favourite sports from user
+#GET /user/user_auth_token/sports
+def get_sports
+  set_user
+  @sports = []
+    @user_sport_settings = @user.user_sport_settings.all
+  @user_sport_settings.each do |user_sport_setting|
+    @sports << user_sport_setting.sport
+  end
+    render json: @sports
+end
+
 
   # POST /user_sport_settings
   def create
     fetch_params
     if is_authorized
-      #Buscar si existe antes de crearlo
       if !@user.user_sport_settings.find_by(sport_id: @sport.id)
         @user_sport_setting = @user.user_sport_settings.build(sport_id: @sport.id)
         @user_sport_setting.update(user_sport_setting_params)
@@ -41,14 +54,13 @@ class UserSportSettingsController < ApplicationController
     else
       unauthorized_message
     end
-
   end
 
-  # PATCH/PUT /user_sport_settings/1
+  # PATCH/PUT /user_sport_settings/sport_id
   def update
     set_user
     if is_authorized
-      @user_sport_setting = @user.user_sport_settings.find(params[:id])
+      @user_sport_setting = @user.user_sport_settings.find_by(sport_id: params[:id])
       if @user_sport_setting.update(user_sport_setting_params)
         render json: @user_sport_setting
       else
@@ -59,11 +71,11 @@ class UserSportSettingsController < ApplicationController
     end
   end
 
-  # DELETE /user_sport_settings/1
+  # DELETE /user_sport_settings/sport_id
   def destroy
     set_user
     if is_authorized
-      @user_sport_setting = @user.user_sport_settings.find(params[:id])
+      @user_sport_setting = @user.user_sport_settings.find_by(sport_id: params[:id])
       @user_sport_setting.destroy
     else
       unauthorized_message
@@ -93,8 +105,11 @@ class UserSportSettingsController < ApplicationController
     end
 
     def is_authorized
-      return true if @user == @current_user
-      return false
+      if @user == @current_user
+        return true
+      else
+        return false
+      end
     end
 
     def unauthorized_message
