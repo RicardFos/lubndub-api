@@ -18,7 +18,6 @@ class ParticipationsController < ApplicationController
     if is_authorized
       render json: @user.participations.find_by(meeting_event_id: params[:id])
     else
-    #  render json: @user.as_json
       unauthorized_message
     end
   end
@@ -27,12 +26,16 @@ class ParticipationsController < ApplicationController
   # GET /users/user_auth_token/events_participating
   def index_events_participating
     set_user
-    @meeting_events = []
-      @participations = @user.participations.all
-    @participations.each do |participation|
-      @meeting_events << participation.meeting_event
+    if is_authorized
+      @meeting_events = []
+        @participations = @user.participations.all
+      @participations.each do |participation|
+        @meeting_events << participation.meeting_event
+      end
+        render json: @meeting_events
+    else
+      unauthorized_message
     end
-      render json: @meeting_events
   end
 
 
