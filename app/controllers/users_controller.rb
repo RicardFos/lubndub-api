@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/user_auth_token
   def update
-    if @user.update(user_params)
+    if @user.update(update_user_params)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity, message: "user not created"
@@ -52,6 +52,11 @@ class UsersController < ApplicationController
     def user_params
       params.permit(:name,:last_name, :email, :password, :gender,
         :date_of_birth, :address, :city, :country_ID, :state_ID, :state_name,
+        :zipcode, :lat, :long)
+    end
+
+    def update_user_params
+      params.permit(:name,:last_name, :gender, :address, :city, :state_name,
         :zipcode, :lat, :long)
     end
 
