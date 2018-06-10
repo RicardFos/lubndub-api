@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180610164118) do
+ActiveRecord::Schema.define(version: 20180610184502) do
 
   create_table "meeting_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "sport_id"
     t.string "location"
     t.float "latitude", limit: 24
     t.float "longitude", limit: 24
@@ -45,6 +43,7 @@ ActiveRecord::Schema.define(version: 20180610164118) do
     t.string "periodic_run", default: "No"
     t.string "event_auth_token"
     t.string "sport_auth_token"
+    t.integer "user_id"
     t.index ["event_auth_token"], name: "index_meeting_events_on_event_auth_token", unique: true
   end
 

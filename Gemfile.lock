@@ -64,10 +64,10 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    mysql2 (0.5.1-x64-mingw32)
     nio4r (2.3.0)
     nokogiri (1.8.2-x64-mingw32)
       mini_portile2 (~> 2.3.0)
-    pg (0.20.0-x64-mingw32)
     puma (3.11.4)
     rack (2.0.5)
     rack-test (1.0.0)
@@ -121,11 +121,14 @@ DEPENDENCIES
   bcrypt!
   byebug
   jwt
-  pg (= 0.20.0)
+  mysql2 (>= 0.3.18, < 0.6.0)
   puma (~> 3.7)
   rails (~> 5.1.6)
   simple_command
   tzinfo-data
+
+RUBY VERSION
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.14.6
