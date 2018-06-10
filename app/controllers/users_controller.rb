@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  #skip_before_action :authenticate_request
+  before_action :authenticate_request, only: [:index, :show, :update]
   before_action :set_user, only: [:update, :destroy]
 
   # GET /users
@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
     if @user.save
       render json: @user, status: :created, location: @user, message: "user created"
     else
@@ -29,17 +28,19 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/user_auth_token
   def update
-    if @user.update(update_user_params)
-      render json: @user
+    if is_authorized
+      if @user.update(update_user_params)
+        render json: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity, message: "user not created"
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity, message: "user not created"
+      unauthorized_message
     end
   end
 
   # DELETE /users/user_auth_token
   def destroy
-    @user.destroy
-    render json: "User deleted"
   end
 
   private
@@ -62,6 +63,18 @@ class UsersController < ApplicationController
 
     def json_exclude
     [ :password_digest, :email, :created_at, :updated_at]
+    end
+
+    def is_authorized
+      if @user == @current_user
+        return true
+      else
+        return false
+      end
+    end
+
+    def unauthorized_message
+      render json: {message: "You can't update other users"}
     end
 
 end
