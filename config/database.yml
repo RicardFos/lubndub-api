@@ -51,4 +51,5 @@ production:
   <<: *default
   database: LubnDubApi_production
   username: LubnDubApi
+  url: <%= ENV['DATABASE_URL'] %>
   password: <%= ENV['LUBNDUBAPI_DATABASE_PASSWORD'] %>
