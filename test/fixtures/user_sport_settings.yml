@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exp_level: 1
+  group_class: MyString
+  raius: 
+  last_minutes: MyString
+
+two:
+  exp_level: 1
+  group_class: MyString
+  raius: 
+  last_minutes: MyString
