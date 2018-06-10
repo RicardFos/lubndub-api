@@ -1,5 +1,5 @@
 class MeetingEventsController < ApplicationController
-  before_action :set_meeting_event, only: [:show, :update, :destroy]
+  before_action :set_meeting_event, only: [:show, :update, :destroy, :get_owner]
   #skip_before_action :authenticate_request
 
   # GET /users/user_auth_token/meeting_events
@@ -13,10 +13,16 @@ class MeetingEventsController < ApplicationController
     end
   end
 
-  # GET /meeting_events/1
+  # GET /users/user_auth_token/meeting_events/event_auth_token
   def show
     render json: @meeting_event
   end
+
+# GET /meeting_events/event_auth_token/owner
+  def get_owner
+    render json: @meeting_event.user
+  end
+
 
   # POST /users/user_auth_token/meeting_events
   def create

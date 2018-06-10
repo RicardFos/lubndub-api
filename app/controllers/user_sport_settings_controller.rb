@@ -4,12 +4,8 @@ class UserSportSettingsController < ApplicationController
   # GET /user_sport_settings
   def index
     set_user
-    if is_authorized
-      @user_sport_settings = @user.user_sport_settings.all
-      render json: @user_sport_settings
-    else
-      unauthorized_message
-    end
+    @user_sport_settings = @user.user_sport_settings.all
+    render json: @user_sport_settings
   end
 
   # GET /user_sport_settings/1
