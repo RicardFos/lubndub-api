@@ -3,7 +3,6 @@ Rails.application.routes.draw do
       resources :search, only: [:create]
     end
   resources :sports, param: :sport_auth_token
-  resources :items
   resources :users, param: :user_auth_token do
     member do
       resources :user_sport_settings,  controller: 'user_sport_settings'
