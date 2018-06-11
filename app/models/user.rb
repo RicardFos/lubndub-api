@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :notifications, dependent: :destroy
   has_many :user_sport_settings, dependent: :destroy
   has_many :participations, dependent: :destroy
   has_many :meeting_events
