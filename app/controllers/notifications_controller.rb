@@ -46,6 +46,16 @@ class NotificationsController < ApplicationController
     @notification.destroy
   end
 
+  #DELETE /users/user_auth_token/notifications
+  def clear_all_nots_from_user
+    set_user
+    if is_authorized
+      Notification.where(:id_user => @user.id).destroy_all
+    else
+      unauthorized_message
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
 
