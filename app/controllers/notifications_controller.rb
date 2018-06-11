@@ -2,11 +2,15 @@ class NotificationsController < ApplicationController
   skip_before_action :authenticate_request
   before_action :set_notification, only: [:show, :update, :destroy]
 
-  # GET /notifications
+  # GET /user/user_auth_token/otifications
   def index
     @notifications = Notification.all
 
     render json: @notifications
+  end
+
+  def index_notifications
+    render json: MeetingEvent.all
   end
 
   # GET /notifications/1
