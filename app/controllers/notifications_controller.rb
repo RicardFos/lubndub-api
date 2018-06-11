@@ -1,12 +1,16 @@
 class NotificationsController < ApplicationController
   skip_before_action :authenticate_request
-  before_action :set_notification, only: [:show, :update, :destroy]
 
   # GET /user/user_auth_token/otifications
   def index
-    @notifications = Notification.all
-
-    render json: @notifications
+    set_user
+    if is_authorized
+      @notifications = @user.notifications.all
+      render json: @notifications
+      @notifications.destroy
+    else
+      unauthorized_message
+    end
   end
 
   def index_notifications
@@ -15,7 +19,12 @@ class NotificationsController < ApplicationController
 
   # GET /notifications/1
   def show
-    render json: @notification
+    set_user
+    if is_authorized
+      render json: @user.participations.find(params[:id])
+    else
+      unauthorized_message
+    end
   end
 
   # POST /notifications
@@ -48,4 +57,18 @@ class NotificationsController < ApplicationController
     def notification_params
       params.require(:notification).permit(:user_id, :subject, :action, :target)
     end
+
+    def is_authorized
+      if @user == @current_user
+        return true
+      else
+        return false
+      end
+    end
+
+    def unauthorized_message
+      render json: {message: "You can't access the notifications from other users"}
+    end
+
+
 end
