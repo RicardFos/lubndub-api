@@ -60,6 +60,8 @@ class ParticipationsController < ApplicationController
       if !@user.participations.find_by(meeting_event_id: @meeting_event.id)
         @participation = @user.participations.build(meeting_event_id: @meeting_event.id)
         if @participation.save
+           @owner = @meeting_event.user
+           Notification.create(user_id: @owner.id, subject: @user.name, action: "joined event", target: @meeting_event.title)
            render json: @participation
         else
           render json: @participation.errors, status: :unprocessable_entity

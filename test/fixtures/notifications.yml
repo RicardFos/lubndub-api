@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  subject: MyString
+  action: MyString
+  target: MyString
+
+two:
+  user_id: 1
+  subject: MyString
+  action: MyString
+  target: MyString
