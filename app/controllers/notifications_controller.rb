@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
   end
 
   def index_notifications
-    render json: MeetingEvent.all
+    render json: Notification.all
   end
 
   # GET /notifications/1
