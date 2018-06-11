@@ -61,8 +61,7 @@ class ParticipationsController < ApplicationController
         @participation = @user.participations.build(meeting_event_id: @meeting_event.id)
         if @participation.save
            @owner = @meeting_event.user
-           @notification = Notification.new(subject: @user.user_auth_token, action: "joined event", target: @meeting_event.event_auth_token)
-           @notification = @owner.notifications.build(@notification)
+           @notification = @owner.notifications.build(subject: @user.user_auth_token, action: "joined event", target: @meeting_event.event_auth_token)
            if @notification.save
              render json: @participation
            else render json: @notification.errors, status: :unprocessable_entity
