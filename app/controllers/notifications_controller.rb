@@ -7,7 +7,6 @@ class NotificationsController < ApplicationController
     if is_authorized
       @notifications = @user.notifications.all
       render json: @notifications
-      @notifications.destroy
     else
       unauthorized_message
     end
