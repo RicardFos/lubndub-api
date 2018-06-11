@@ -1,10 +1,10 @@
 class NotificationsController < ApplicationController
   skip_before_action :authenticate_request
 
-  # GET /user/user_auth_token/otifications
+  # GET /user/user_auth_token/notifications
   def index
     set_user
-    if is_authorized
+    if true
       @notifications = @user.notifications.all
       render json: @notifications
     else
