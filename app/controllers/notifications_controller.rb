@@ -50,7 +50,7 @@ class NotificationsController < ApplicationController
   def clear_all_nots_from_user
     set_user
     if is_authorized
-      Notification.where(:id_user => @user.id).destroy_all
+      Notification.where(:user_id => @user.id).destroy_all
     else
       unauthorized_message
     end
